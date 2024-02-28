@@ -1,0 +1,23 @@
+http://srikanthtechnologies.com/oracle/purord/tables.html
+https://tomcat.apache.org/tomcat-10.0-doc/appdev/introduction.html
+https://www.javatpoint.com/how-to-build-a-web-application-using-java
+https://www.javaguides.net/2019/03/registration-form-using-jsp-servlet-jdbc-mysql-example.html
+https://www.candidjava.com/tutorial/servlet-form-example/
+https://initialcommit.com/blog/how-to-send-data-from-servlet-to-jsp
+https://www.ictdemy.com/java/jdbc/programming-a-database-wrapper-in-java-the-database-class
+https://www.tutorialspoint.com/jsp
+1. Register customers ( 0 admin, 1 buyer, 2 delivery person, 3 seller  ). Entry goes in CUSTOMERS table. admin mobile no can be changed using sql command.
+2. A GUI for admin to enter items. Entry goes into ITEMS table.
+3. A web based mobile phone GUI to place order by the buyer, one order will contain atleast one item. Entry goes into the ORDERS and ORDERITEMS table.
+4. A GUI to login by the customers. 
+5. A buyer place order with many items, admin will view orders on orders page, admin will assign order to delivery person, delivery person ask money
+from owner, owner enters the amount in DELIVERY_CUST_ACCOUNT table in amountPaid field, delivery person purchase the goods and deliver to 
+the customer address, delivery person recives money from the buyer (amount of total items + delivery charges), delivery person gives money to the owner, 
+owner enters amount in DELIVERY_CUST_ACCOUNT table in amountReceived field. A GUI will show the profit or loss per order per delivery person.
+6. A GUI to assign order to delivery person.
+7. A GUI to enter amount paid/recived to/from delivery person by owner.
+8. A GUI to view my orders by buyer.
+9. A GUI to view all the assigned orders to the particular delivery person.
+10. A GUI to view all the orders on the basis of city/colony/street name.
+11. A GUI to update the order state from pending to delivered.
+12. A GUI to view total profit or loss weekly, monthly, from start date to end date.

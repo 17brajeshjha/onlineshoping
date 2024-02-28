@@ -1,0 +1,56 @@
+@charset "UTF-8";
+body, html {
+  height: 100%;
+  margin: 0;
+  font: 400 15px/1.8 "Lato", sans-serif;
+  color: #777;
+}
+
+input[type=number] , input[type=text], input[type=tel], input[type=password], input[type=email]{
+  background-color: #F7EEEB;
+  border: solid;
+  color: gray;
+  padding: 10px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #F77153;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 12px;
+}
+/* Set a style for all buttons */
+button {
+  background-color: #F77153;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 12px;
+  width:90%;
+}
+
+button:hover {
+  opacity:1;
+}
+table.tb{
+   overflow-y:scroll;
+   height:300px;
+   width:100%;
+   display:block;
+}
+.tb th, .tb td { border: 1px #777; padding: 5px;}

@@ -1,0 +1,73 @@
+http://srikanthtechnologies.com/oracle/purord/tables.html
+https://tomcat.apache.org/tomcat-10.0-doc/appdev/introduction.html
+https://www.javatpoint.com/how-to-build-a-web-application-using-java
+
+https://www.javaguides.net/2019/03/registration-form-using-jsp-servlet-jdbc-mysql-example.html
+https://www.candidjava.com/tutorial/servlet-form-example/
+How to insert values into two tables with a foreign key relationship?
+asked
+------
+INSERT INTO table1( ccc ) VALUES ( 'a' );   
+SET scopeIdentity = LAST_INSERT_ID();    
+
+INSERT INTO table2( ccc,tttId ) VALUES ( 'b',scopeIdentity );   
+SET SET scopeIdentity2 = LAST_INSERT_ID(); 
+
+INSERT INTO table3( ccc,tttId2 ) VALUES ( 'b',scopeIdentity2 );
+Replied
+----------
+INSERT INTO table1( ccc ) VALUES ( 'a' );      
+
+INSERT INTO table2( ccc,tttId ) VALUES ( 'b',LAST_INSERT_ID());    
+
+INSERT INTO table3( ccc,tttId2 ) VALUES ( 'b',LAST_INSERT_ID());
+-------------------------------------------------------------------
+done
+-------
+insert into orders(custno,deliveryCustNo) values('65','74');
+insert into orderitems(ordno,itemno) values(LAST_INSERT_ID(),'1');
+select LAST_INSERT_ID();
+mysql> Show create table employee\G
+https://stackoverflow.com/questions/37909314/how-to-insert-values-into-two-tables-with-a-foreign-key-relationship
+
+
+insert into customers(custname,custType,mobileNo,password,emailid,loggedin,streetName,colonyName,city,state,pin,CountryCode) values('Raul','12-22-29','Dwarakanagar','Vizag','AP','530016','453343,634333');
+
+
+
+insert into items (itemname,rate,taxrate) values('Samsung 14" monitor',7000,10.5);
+
+
+
+create table CUSTOMERS
+(
+ custno    MEDIUMINT NOT NULL AUTO_INCREMENT,
+ custname  varchar(100),
+ custType  int default 0 COMMENT '0-kharidne wala, 1-saman pahuchane wala',
+ malefemale  int default 0 COMMENT '0-male, 1-female',
+ mobileNo  varchar(20),
+ password  varchar(255),
+ emailid   varchar(100),
+ loggedin  tinyint(1) default 0 COMMENT '0-logged out, 1-logged in', 
+ streetName   varchar(255),
+ colonyName   varchar(255),
+ city      varchar(100),
+ state     varchar(100),
+ pin       varchar(15),
+ CountryCode varchar(10),
+ PRIMARY KEY (custno)
+);
+insert into Customers(custname,custType,malefemale,mobileNo,password,emailid,loggedin,streetName,colonyName,city,state,pin,CountryCode) 
+values('brajesh','0','0','8130274916','145a5b13977ae81282c79408d3e00d0b','brajesh@gmail.com','1','galin no 16','mukundpur','delhi','delhi','110042','India');
+
+mysql> select * from customers;
++--------+----------+----------+------------+------------+----------------------------------+-------------------+----------+-------------+------------+-------+-------+--------+-------------+
+| custno | custname | custType | malefemale | mobileNo   | password                         | emailid           | loggedin | streetName  | colonyName | city  | state | pin    | CountryCode |
++--------+----------+----------+------------+------------+----------------------------------+-------------------+----------+-------------+------------+-------+-------+--------+-------------+
+|      1 | brajesh  |        0 |          0 | 8130274916 | 145a5b13977ae81282c79408d3e00d0b | brajesh@gmail.com |        1 | galin no 16 | mukundpur  | delhi | delhi | 110042 | India       |
++--------+----------+----------+------------+------------+----------------------------------+-------------------+----------+-------------+------------+-------+-------+--------+-------------+
+1 row in set (0.00 sec)
+
+
+
+

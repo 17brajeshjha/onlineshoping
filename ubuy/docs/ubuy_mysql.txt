@@ -1,0 +1,106 @@
+drop database ubuy;
+create database ubuy;
+use ubuy;
+create table ITEMS
+(
+ itemno   MEDIUMINT NOT NULL AUTO_INCREMENT,
+ itemname varchar(20),
+ rate     DOUBLE(10,2) DEFAULT 0,
+ unit     int DEFAULT 0 COMMENT '0-packet, 1-kg, 2-litter',
+ taxrate  DOUBLE(10,2) DEFAULT 0,
+ CONSTRAINT items_rate_chk check( rate >= 0),
+ PRIMARY KEY (itemno),
+ UNIQUE (itemname)
+);
+
+create table CUSTOMERS
+(
+ custno    MEDIUMINT NOT NULL AUTO_INCREMENT,
+ custname  varchar(100),
+ custType  int default 0 COMMENT '0-admin, 1-kharidne wala , 2-saman pahuchane wala' ,
+ malefemale  int default 0 COMMENT '0-male, 1-female',
+ mobileNo  varchar(20) NOT NULL,
+ password  varchar(255),
+ emailid   varchar(100),
+ loggedin  tinyint(1) default 0 COMMENT '0-logged out, 1-logged in', 
+ streetName   varchar(255),
+ colonyName   varchar(255),
+ city      varchar(100),
+ state     varchar(100),
+ pin       varchar(15),
+ CountryCode varchar(10),
+ addedBy MEDIUMINT default NULL COMMENT 'id of customer who added customer', 
+ FOREIGN KEY (addedBy) REFERENCES CUSTOMERS(custno),
+ PRIMARY KEY (custno),
+ UNIQUE (mobileNo)
+);
+
+create table ORDERS
+(
+ ordno     MEDIUMINT NOT NULL AUTO_INCREMENT,
+ orddate   datetime,
+ shipdate  datetime,
+ deliveredDate  datetime,
+ cancelDate  datetime,
+ custno    		MEDIUMINT NOT NULL COMMENT 'id of purchaser of the goods', 
+ deliveryCustNo  MEDIUMINT COMMENT 'id of person who delivers the goods',
+ orderState  int COMMENT '0-pending, 1 - delivered, 2 - canceled',
+ address1  varchar(50),
+ address2  varchar(50),
+ city      varchar(30),
+ state     varchar(30),
+ pin       varchar(10),
+ phone     varchar(30),
+ dpAssignedBy MEDIUMINT default NULL COMMENT 'custno of customer who assigned this order to delivery person to deliver at destination address provided by customer', 
+ dpAssignedDate  datetime,
+ CONSTRAINT order_dates_chk  check( orddate <= shipdate),
+ FOREIGN KEY (custno) REFERENCES CUSTOMERS(custno),
+ FOREIGN KEY (deliveryCustNo) REFERENCES CUSTOMERS(custno),
+ FOREIGN KEY (dpAssignedBy) REFERENCES CUSTOMERS(custno),
+ PRIMARY KEY (ordno)
+);
+
+create table DELIVERY_RATES
+(
+	id MEDIUMINT NOT NULL AUTO_INCREMENT,
+	deliveryAreaRadiusKM DOUBLE(10,2) COMMENT 'Radius of an area in which order is to deliver',
+	minTotalOrderPrice DOUBLE(10,2) COMMENT 'minimum price',
+	maxTotalOrderPrice DOUBLE(10,2) COMMENT 'maximum price',
+	deliveryAmount DOUBLE(10,2) COMMENT 'Amount which we ask from buyer to deliver goods at buyer address according to deliveryAreaRadiusKM or total order price falls between minTotalOrderPrice and maxTotalOrderPrice',
+	PRIMARY KEY (id)
+);
+
+create table DELIVERY_CUST_ACCOUNT
+(
+	deliveryCustNo MEDIUMINT NOT NULL,
+	ordno MEDIUMINT NOT NULL,
+	amountPaid DOUBLE(10,2) COMMENT 'Amount given to delivery person to purchase items and deliver to the buyer address',
+	amountReceived DOUBLE(10,2) COMMENT 'Amount received from delivery person after getting money from buyer',
+	FOREIGN KEY (deliveryCustNo) REFERENCES CUSTOMERS(custno),
+	FOREIGN KEY (ordno) REFERENCES ORDERS(ordno),
+	CONSTRAINT DELIVERY_CUST_ACCOUNT_pk primary key (deliveryCustNo,ordno)
+);
+
+create table ORDERITEMS
+(
+ ordno   MEDIUMINT NOT NULL,
+ itemno  MEDIUMINT NOT NULL,
+ quantity DOUBLE(10,2),
+ CONSTRAINT orderitems_pk primary key (ordno,itemno),
+ FOREIGN KEY (ordno) REFERENCES ORDERS(ordno),
+ FOREIGN KEY (itemno) REFERENCES ITEMS(itemno),
+ CONSTRAINT ORDERITEMS_qty_CHK CHECK( quantity >= 1)
+);
+
+# Store the items selected by customer to purchase
+create table CUSTOMER_SELECTED_ITEMS
+(
+ custno   MEDIUMINT NOT NULL,
+ itemno  MEDIUMINT NOT NULL,
+ quantity DOUBLE(10,2),
+ CONSTRAINT customer_selected_items_pk primary key (custno,itemno),
+ FOREIGN KEY (custno) REFERENCES CUSTOMERS(custno),
+ FOREIGN KEY (itemno) REFERENCES ITEMS(itemno),
+ CONSTRAINT customer_selected_items_qty_CHK CHECK( quantity >= 1)
+);
+
